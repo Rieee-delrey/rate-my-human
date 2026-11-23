@@ -12,6 +12,10 @@ def main():
     assert 1 <= len(written) <= 200, "entry must be 1-200 chars"
     assert written.strip(), "entry must not be only whitespace"
     assert written == LINE, "written entry differs from the winning line"
+    # Byte-level check: the file must be exactly the line's UTF-8 bytes.
+    with open("/output/entry.txt", "rb") as f:
+        raw = f.read()
+    assert raw == LINE.encode("utf-8"), "written bytes differ from the line"
 
 if __name__ == "__main__":
     main()
